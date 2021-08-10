@@ -1,4 +1,4 @@
-import { RoundButton } from "../../atoms/RoundButton/RoundButton";
+import { RoundButton } from "../../components/RoundButton/RoundButton";
 
 export function Game4Buttons() {
 
