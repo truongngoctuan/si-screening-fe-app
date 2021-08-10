@@ -1,11 +1,25 @@
 
+import classNames from 'classnames';
 import styles from './RoundButton.module.css';
+import { ButtonType } from '../typings';
 
-export function RoundButton() {
+export type StateButtonProps = {
+  selected: boolean;
+  type: ButtonType;
+  disabled: boolean;
+  onClick: (buttonType: ButtonType) => void;
+}
+
+export function RoundButton({ selected, type, disabled, onClick }: StateButtonProps) {
 
   return (
-    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-      Button
-    </button>
+    <button className={classNames(styles.button, "disabled:opacity-50",
+      styles[`button-${type}`],
+      {
+        [styles["button-selected"]]: selected,
+        [styles["button-disabled"]]: disabled,
+      })}
+      disabled={disabled}
+      onClick={() => onClick(type)} />
   );
 }
