@@ -6,6 +6,10 @@
     * pages: page layout and business
     * components: reusable components
 
+## Screen-shots
+
+![Demo page](docs/imgs/demo-game-pages.png)
+
 ## Available Scripts
 
 In the project directory, you can run:
