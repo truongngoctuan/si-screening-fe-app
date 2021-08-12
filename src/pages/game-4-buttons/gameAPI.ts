@@ -10,6 +10,7 @@ export function getNextStates(buttonType: ButtonType, histories: ButtonType[]) {
     queryString += `histories=${element}`
   }
 
+  // todo replace with an env file
   return fetch(`http://localhost:3100/api/transition/${buttonType}${queryString}`)
     .then(response => response.json())
     .then(data => ({ data }));
