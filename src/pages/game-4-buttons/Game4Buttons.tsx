@@ -3,18 +3,22 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { RoundButton } from "../../components/RoundButton/RoundButton";
 import { ButtonType } from "../../typings";
 import styles from "./GameNButtons.module.css";
-import { reset, selectAvailableSteps, selectCurrentStep, getAvailableStatesAsync, selectState } from "./gameSlice";
+import { reset, selectAvailableSteps, selectCurrentStep, getAvailableStatesAsync, selectState, selectHistories, selectIsLoading } from "./gameSlice";
 
 export function Game4Buttons() {
 
   const dispatch = useAppDispatch();
   const buttonTypeSelected = useAppSelector(selectCurrentStep);
   const nextButtonTypes = useAppSelector(selectAvailableSteps);
+  const buttonHistories = useAppSelector(selectHistories);
+
+  const isLoading = useAppSelector(selectIsLoading);
 
   const buttons: ButtonType[] = ["blue", "green", "yellow"];
 
   useEffect(() => {
-    dispatch(getAvailableStatesAsync(buttonTypeSelected));
+    dispatch(getAvailableStatesAsync({ step: buttonTypeSelected, histories: buttonHistories }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, buttonTypeSelected]);
 
   const buttonClickHandler = (buttonType: ButtonType) => {
@@ -32,6 +36,8 @@ export function Game4Buttons() {
       )}
       <br />
       <button className={styles["reset-button"]} onClick={resetClickHandler}>Reset</button>
+      <br />
+      <span className="text-blue-400 text-sm">{isLoading ? 'Loading' : 'Loaded Success'}</span>
     </div>
   );
 }

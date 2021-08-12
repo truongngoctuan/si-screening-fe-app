@@ -1,7 +1,7 @@
 import { ButtonType } from "../../typings";
 
 // A mock function to mimic making an async request for data
-export function getNextStates(buttonType: ButtonType) {
+export function getNextStates(buttonType: ButtonType, histories: ButtonType[]) {
   return new Promise<{ data: ButtonType[] }>((resolve) =>
     setTimeout(() => resolve({ data: getNextTransitions(buttonType) }), 500)
   );
