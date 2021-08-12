@@ -1,5 +1,5 @@
 .button {
-  @apply text-white font-bold py-8 px-8 rounded-full m-2;
+  @apply text-white font-bold py-8 px-8 rounded-full m-4;
 }
 
 .button-selected {

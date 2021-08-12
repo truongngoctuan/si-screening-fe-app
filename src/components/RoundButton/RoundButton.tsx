@@ -1,7 +1,7 @@
 
 import classNames from 'classnames';
 import styles from './RoundButton.module.css';
-import { ButtonType } from '../typings';
+import { ButtonType } from '../../typings';
 
 export type StateButtonProps = {
   selected: boolean;

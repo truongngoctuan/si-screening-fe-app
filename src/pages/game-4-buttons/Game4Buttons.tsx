@@ -1,25 +1,27 @@
-import { useState } from "react";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { RoundButton } from "../../components/RoundButton/RoundButton";
-import { ButtonType } from "../../components/typings";
-import { getNextTransitions } from "./fake-api";
+import { ButtonType } from "../../typings";
 import styles from "./GameNButtons.module.css";
+import { reset, selectAvailableSteps, selectCurrentStep, getAvailableStatesAsync, selectState } from "./gameSlice";
 
 export function Game4Buttons() {
 
+  const dispatch = useAppDispatch();
+  const buttonTypeSelected = useAppSelector(selectCurrentStep);
+  const nextButtonTypes = useAppSelector(selectAvailableSteps);
+
   const buttons: ButtonType[] = ["blue", "green", "yellow"];
-  const initButtonType: ButtonType = "blue";
 
-  const [buttonTypeSelected, setButtonTypeSelected] = useState<ButtonType>(initButtonType);
-
-  // data returned from API
-  const nextButtonTypes = getNextTransitions(buttonTypeSelected);
+  useEffect(() => {
+    dispatch(getAvailableStatesAsync(buttonTypeSelected));
+  }, [dispatch, buttonTypeSelected]);
 
   const buttonClickHandler = (buttonType: ButtonType) => {
-    console.log("hello")
-    setButtonTypeSelected(buttonType);
+    dispatch(selectState(buttonType));
   }
 
-  const resetClickHandler = () => setButtonTypeSelected(initButtonType)
+  const resetClickHandler = () => dispatch(reset());
 
   return (
     <div>
@@ -28,6 +30,7 @@ export function Game4Buttons() {
           disabled={nextButtonTypes.findIndex(nBtn => nBtn === btnType) === -1}
           onClick={buttonClickHandler} />
       )}
+      <br />
       <button className={styles["reset-button"]} onClick={resetClickHandler}>Reset</button>
     </div>
   );
